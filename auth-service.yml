@@ -2,19 +2,15 @@ server:
   port: 8081
 
 system:
-  p12FilePath: localhost.p12
-  p12PrivkPwd: DVG7tS2fcta2xj1QGPy6G1Dws/J0Su0ALxuJ+EaN3zJjXpy6K4Y=
-  p12PrivkAlias: 4gb0JWnF8fFoK1n0ykXTQxL8jPPNhJKC9qTUdLdfYZGHALbBIA==
-  hostname: Vy5aAoXEi/1RcOOsL2d4kJYxwjuvwuyHJ9eksDXwFyetwnQyZA==
-  p12FilePwd: Q5lC6wYAGQ4+BgvdBLqxRebvVv8fBcRl1Fyz5cgTKhasW0M8aTk=
+  hostname: localhost
 
 spring:
   application:
-    name: servicio-autenticacion
+    name: auth-service
   datasource:
-    url: jdbc:mysql://localhost:3306/auth_db
-    password: mysecretpassword 
-    username: root
+    url: jdbc:mysql://localhost:3306/dwb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    password: 23052001
+    username: root 
   jpa:
     open-in-view: false
     show-sql: true
@@ -33,28 +29,8 @@ springdoc:
     pathsToMatch: /**
 
 eureka:
-    client:
-        service-url:
-            defaultZone: http://localhost:8761/eureka
-    instance:
-        hostname: localhost
-        prefer-ip-address: false
-        secure-port-enabled: true
-        non-secure-port-enabled: false  # Desactiva el puerto no seguro
-        
-        # URLs específicas para health checks con HTTPS:
-        status-page-url: https://${eureka.instance.hostname}:${server.port}/actuator/info
-        health-check-url: https://${eureka.instance.hostname}:${server.port}/actuator/health
-        home-page-url: https://${eureka.instance.hostname}:${server.port}/
-
-management:
-  # Exponer endpoints actuator
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,loggers,threaddump,heapdump
-    
-  # Mostrar detalles de health  
-  endpoint:
-    health:
-      show-details: always
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
